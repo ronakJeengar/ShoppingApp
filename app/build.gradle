@@ -5,12 +5,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.ronakjee.shoppingapp"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -23,18 +23,32 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
 
     packagingOptions {
-        exclude 'META-INF/atomicfu.kotlin_module'
+        resources {
+            excludes += ['META-INF/atomicfu.kotlin_module']
+        }
     }
 
-    kotlinOptions {
-        jvmTarget = '1.8'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+//    kapt {
+//        javacOptions {
+//            option("-target", "1.8")
+//            option("-source", "1.8")
+//        }
+//    }
+
+    buildFeatures{
+        viewBinding true
+    }
+    namespace 'com.ronakjee.shoppingapp'
 }
 
 dependencies {
@@ -69,5 +83,6 @@ dependencies {
     androidTestImplementation ("androidx.test.espresso:espresso-core:$rootProject.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    //noinspection GradleDependency
     androidTestImplementation "androidx.test.ext:junit:$rootProject.androidxJunitVersion"
 }

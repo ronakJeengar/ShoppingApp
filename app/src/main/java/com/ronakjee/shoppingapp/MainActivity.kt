@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.ronakjee.shoppingapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), GroceryRVAdapter.GroceryItemClickInterface {
 
@@ -19,14 +20,18 @@ class MainActivity : AppCompatActivity(), GroceryRVAdapter.GroceryItemClickInter
     private lateinit var list: List<GroceryItems>
     private lateinit var groceryRVAdapter: GroceryRVAdapter
     private lateinit var groceryViewModel: GroceryViewModel
+    private var binding : ActivityMainBinding? = null
+
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding?.root
+        setContentView(view)
 
-        itemsRV = findViewById(R.id.recyclerViewItems)
-        addFAB = findViewById(R.id.addItemsForGrocery)
+        itemsRV = binding?.recyclerViewItems!!
+        addFAB = binding?.addItemsForGrocery!!
         list = ArrayList()
 
         groceryRVAdapter = GroceryRVAdapter(list,this)
